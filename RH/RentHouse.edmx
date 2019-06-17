@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="RentHouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="RentHouseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Admin">
           <Key>
             <PropertyRef Name="AdminId" />
@@ -51,6 +51,22 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MenuLevel">
+          <Key>
+            <PropertyRef Name="MenuLevelId" />
+          </Key>
+          <Property Name="MenuLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuLevelName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MenuId" Type="int" Nullable="false" />
+          <Property Name="MenuLevelURL" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -114,12 +130,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MenuLevel_Menu">
+          <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+          <End Role="MenuLevel" Type="Self.MenuLevel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="MenuLevel">
+              <PropertyRef Name="MenuLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="RentHouseModelStoreContainer">
           <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="House" EntityType="Self.House" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HouseType" EntityType="Self.HouseType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MenuLevel" EntityType="Self.MenuLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_City_City" Association="Self.FK_City_City">
@@ -138,9 +168,12 @@
             <End Role="State" EntitySet="State" />
             <End Role="House" EntitySet="House" />
           </AssociationSet>
+          <AssociationSet Name="FK_MenuLevel_Menu" Association="Self.FK_MenuLevel_Menu">
+            <End Role="Menu" EntitySet="Menu" />
+            <End Role="MenuLevel" EntitySet="MenuLevel" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RentHouseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -285,7 +318,43 @@
             <End Role="State" EntitySet="States" />
             <End Role="House" EntitySet="Houses" />
           </AssociationSet>
+          <EntitySet Name="Menus" EntityType="RentHouseModel.Menu" />
+          <EntitySet Name="MenuLevels" EntityType="RentHouseModel.MenuLevel" />
+          <AssociationSet Name="FK_MenuLevel_Menu" Association="RentHouseModel.FK_MenuLevel_Menu">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="MenuLevel" EntitySet="MenuLevels" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Menu">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MenuLevel" Relationship="RentHouseModel.FK_MenuLevel_Menu" FromRole="Menu" ToRole="MenuLevel" />
+        </EntityType>
+        <EntityType Name="MenuLevel">
+          <Key>
+            <PropertyRef Name="MenuLevelId" />
+          </Key>
+          <Property Name="MenuLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuLevelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="MenuLevelURL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Menu" Relationship="RentHouseModel.FK_MenuLevel_Menu" FromRole="MenuLevel" ToRole="Menu" />
+        </EntityType>
+        <Association Name="FK_MenuLevel_Menu">
+          <End Type="RentHouseModel.Menu" Role="Menu" Multiplicity="1" />
+          <End Type="RentHouseModel.MenuLevel" Role="MenuLevel" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="MenuLevel">
+              <PropertyRef Name="MenuLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -357,6 +426,24 @@
               <MappingFragment StoreEntitySet="State">
                 <ScalarProperty Name="StateId" ColumnName="StateId" />
                 <ScalarProperty Name="StateName" ColumnName="StateName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="RentHouseModel.Menu">
+              <MappingFragment StoreEntitySet="Menu">
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MenuLevels">
+            <EntityTypeMapping TypeName="RentHouseModel.MenuLevel">
+              <MappingFragment StoreEntitySet="MenuLevel">
+                <ScalarProperty Name="MenuLevelURL" ColumnName="MenuLevelURL" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="MenuLevelName" ColumnName="MenuLevelName" />
+                <ScalarProperty Name="MenuLevelId" ColumnName="MenuLevelId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

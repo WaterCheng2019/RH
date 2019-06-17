@@ -16,6 +16,9 @@
         <AssociationConnector Association="RentHouseModel.FK_Customer_City" ManuallyRouted="false" />
         <AssociationConnector Association="RentHouseModel.FK_House_House" ManuallyRouted="false" />
         <AssociationConnector Association="RentHouseModel.FK_House_State" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RentHouseModel.Menu" Width="1.5" PointX="8.375" PointY="1.125" />
+        <EntityTypeShape EntityType="RentHouseModel.MenuLevel" Width="1.5" PointX="10.625" PointY="0.875" />
+        <AssociationConnector Association="RentHouseModel.FK_MenuLevel_Menu" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

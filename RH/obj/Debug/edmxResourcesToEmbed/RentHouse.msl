@@ -69,5 +69,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Menus">
+      <EntityTypeMapping TypeName="RentHouseModel.Menu">
+        <MappingFragment StoreEntitySet="Menu">
+          <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+          <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MenuLevels">
+      <EntityTypeMapping TypeName="RentHouseModel.MenuLevel">
+        <MappingFragment StoreEntitySet="MenuLevel">
+          <ScalarProperty Name="MenuLevelURL" ColumnName="MenuLevelURL" />
+          <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+          <ScalarProperty Name="MenuLevelName" ColumnName="MenuLevelName" />
+          <ScalarProperty Name="MenuLevelId" ColumnName="MenuLevelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -109,6 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Bli\Newtonsoft.Json.dll" />
+    <Content Include="Images\index.svg" />
+    <Content Include="JavaScript\Index.js" />
+    <Content Include="JavaScript\Login.js" />
     <Content Include="jquery-easyui-1.7.0\changelog.txt" />
     <Content Include="jquery-easyui-1.7.0\demo-mobile\accordion\basic.html" />
     <Content Include="jquery-easyui-1.7.0\demo-mobile\accordion\header.html" />
@@ -435,6 +438,7 @@
     <Content Include="jquery-easyui-1.7.0\demo\window\modalwindow.html" />
     <Content Include="jquery-easyui-1.7.0\demo\window\windowlayout.html" />
     <Content Include="jquery-easyui-1.7.0\easyloader.js" />
+    <Content Include="jquery-easyui-1.7.0\easyui-lang-zh_CN.js" />
     <Content Include="jquery-easyui-1.7.0\jquery.easyui.min.js" />
     <Content Include="jquery-easyui-1.7.0\jquery.easyui.mobile.js" />
     <Content Include="jquery-easyui-1.7.0\jquery.min.js" />
@@ -987,7 +991,7 @@
     <Content Include="RentHouse.edmx.diagram">
       <DependentUpon>RentHouse.edmx</DependentUpon>
     </Content>
-    <Content Include="Handler\Login.ashx" />
+    <Content Include="Ashx\Login.ashx" />
     <Content Include="jquery-easyui-1.7.0\demo\accordion\datagrid_data1.json" />
     <Content Include="jquery-easyui-1.7.0\demo\combobox\combobox_data1.json" />
     <Content Include="jquery-easyui-1.7.0\demo\combobox\combobox_data2.json" />
@@ -1012,6 +1016,7 @@
     <Content Include="jquery-easyui-1.7.0\demo\tree\tree_data2.json" />
     <Content Include="jquery-easyui-1.7.0\themes\material-teal\images\Thumbs.db" />
     <Content Include="jquery-easyui-1.7.0\themes\material\images\Thumbs.db" />
+    <Content Include="Ashx\Index.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1040,13 +1045,16 @@
     <Compile Include="Admin.cs">
       <DependentUpon>RentHouse.tt</DependentUpon>
     </Compile>
+    <Compile Include="Ashx\Index.ashx.cs">
+      <DependentUpon>Index.ashx</DependentUpon>
+    </Compile>
     <Compile Include="City.cs">
       <DependentUpon>RentHouse.tt</DependentUpon>
     </Compile>
     <Compile Include="Customer.cs">
       <DependentUpon>RentHouse.tt</DependentUpon>
     </Compile>
-    <Compile Include="Handler\Login.ashx.cs">
+    <Compile Include="Ashx\Login.ashx.cs">
       <DependentUpon>Login.ashx</DependentUpon>
     </Compile>
     <Compile Include="House.cs">
@@ -1069,6 +1077,13 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Menu.cs">
+      <DependentUpon>RentHouse.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MenuLevel.cs">
+      <DependentUpon>RentHouse.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Province.cs">
       <DependentUpon>RentHouse.tt</DependentUpon>
@@ -1093,11 +1108,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="JavaScript\" />
     <Folder Include="Page\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

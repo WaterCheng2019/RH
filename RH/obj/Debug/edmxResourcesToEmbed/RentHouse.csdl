@@ -141,5 +141,41 @@
       <End Role="State" EntitySet="States" />
       <End Role="House" EntitySet="Houses" />
     </AssociationSet>
+    <EntitySet Name="Menus" EntityType="RentHouseModel.Menu" />
+    <EntitySet Name="MenuLevels" EntityType="RentHouseModel.MenuLevel" />
+    <AssociationSet Name="FK_MenuLevel_Menu" Association="RentHouseModel.FK_MenuLevel_Menu">
+      <End Role="Menu" EntitySet="Menus" />
+      <End Role="MenuLevel" EntitySet="MenuLevels" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuId" />
+    </Key>
+    <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MenuLevel" Relationship="RentHouseModel.FK_MenuLevel_Menu" FromRole="Menu" ToRole="MenuLevel" />
+  </EntityType>
+  <EntityType Name="MenuLevel">
+    <Key>
+      <PropertyRef Name="MenuLevelId" />
+    </Key>
+    <Property Name="MenuLevelId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MenuLevelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MenuId" Type="Int32" Nullable="false" />
+    <Property Name="MenuLevelURL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Menu" Relationship="RentHouseModel.FK_MenuLevel_Menu" FromRole="MenuLevel" ToRole="Menu" />
+  </EntityType>
+  <Association Name="FK_MenuLevel_Menu">
+    <End Type="RentHouseModel.Menu" Role="Menu" Multiplicity="1" />
+    <End Type="RentHouseModel.MenuLevel" Role="MenuLevel" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuId" />
+      </Principal>
+      <Dependent Role="MenuLevel">
+        <PropertyRef Name="MenuLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

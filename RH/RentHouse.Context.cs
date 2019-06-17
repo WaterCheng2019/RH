@@ -32,5 +32,7 @@ namespace RH
         public virtual DbSet<HouseType> HouseTypes { get; set; }
         public virtual DbSet<Province> Provinces { get; set; }
         public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<Menu> Menus { get; set; }
+        public virtual DbSet<MenuLevel> MenuLevels { get; set; }
     }
 }

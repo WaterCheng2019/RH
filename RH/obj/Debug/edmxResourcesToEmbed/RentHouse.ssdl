@@ -47,6 +47,22 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StateName" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="Menu">
+    <Key>
+      <PropertyRef Name="MenuId" />
+    </Key>
+    <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MenuLevel">
+    <Key>
+      <PropertyRef Name="MenuLevelId" />
+    </Key>
+    <Property Name="MenuLevelId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuLevelName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="MenuId" Type="int" Nullable="false" />
+    <Property Name="MenuLevelURL" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
   <EntityType Name="Province">
     <Key>
       <PropertyRef Name="ProvinceId" />
@@ -109,12 +125,26 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_MenuLevel_Menu">
+    <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
+    <End Role="MenuLevel" Type="Self.MenuLevel" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuId" />
+      </Principal>
+      <Dependent Role="MenuLevel">
+        <PropertyRef Name="MenuLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="RentHouseModelStoreContainer">
     <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="House" EntityType="Self.House" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="HouseType" EntityType="Self.HouseType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menu" EntityType="Self.Menu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MenuLevel" EntityType="Self.MenuLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_City_City" Association="Self.FK_City_City">
@@ -132,6 +162,10 @@
     <AssociationSet Name="FK_House_State" Association="Self.FK_House_State">
       <End Role="State" EntitySet="State" />
       <End Role="House" EntitySet="House" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MenuLevel_Menu" Association="Self.FK_MenuLevel_Menu">
+      <End Role="Menu" EntitySet="Menu" />
+      <End Role="MenuLevel" EntitySet="MenuLevel" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
