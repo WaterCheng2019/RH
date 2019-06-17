@@ -37,7 +37,7 @@ namespace RH.Ashx
 
 
 
-            context.Response.Write(JsonData);
+            context.Response.Write("["+JsonData+"]");
         }
 
         public string GetTreeList()

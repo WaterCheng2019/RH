@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <title>主页面</title>
     <script src="jquery-easyui-1.7.0/jquery.min.js"></script>
     <script src="jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="jquery-easyui-1.7.0/easyui-lang-zh_CN.js"></script>
@@ -58,7 +58,7 @@
 
     <%----操作栏-- --%>
     <div data-options="region:'center',title:'内容',split:true"  >
-        <div class="easyui-tabs"  fit="true" border="false">
+        <div  id="tabs" class="easyui-tabs"  fit="true" border="false">
             <div  data-options="title:'首页',iconCls:'icon-save',closable:true">
                 <img src="Images/index.svg" width="100%" height="100%" />
 

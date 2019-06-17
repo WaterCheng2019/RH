@@ -9,7 +9,7 @@
     <script src="jquery-easyui-1.7.0/jquery.min.js"></script>
     <script src="jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="jquery-easyui-1.7.0/easyui-lang-zh_CN.js"></script>
-   <link href="jquery-easyui-1.7.0/themes/default/easyui.css" rel="stylesheet" />
+    <link href="jquery-easyui-1.7.0/themes/default/easyui.css" rel="stylesheet" />
     <link href="jquery-easyui-1.7.0/themes/icon.css" rel="stylesheet" />
 
     <script src="JavaScript/Login.js"></script>
