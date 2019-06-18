@@ -9,7 +9,9 @@
     <script src="jquery-easyui-1.7.0/jquery.min.js"></script>
     <script src="jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="jquery-easyui-1.7.0/easyui-lang-zh_CN.js"></script>
-    <link href="jquery-easyui-1.7.0/themes/default/easyui.css" rel="stylesheet" />
+
+    <link id="easyuiTheme" href="jquery-easyui-1.7.0/themes/bootstrap/easyui.css" rel="stylesheet" />
+
     <link href="jquery-easyui-1.7.0/themes/icon.css" rel="stylesheet" />
 
     <script src="JavaScript/Index.js"></script>
@@ -36,7 +38,17 @@
      </div>
 
     <%----页眉-- --%>
-    <div data-options="region:'north',split:true" style="height:80px;padding:20px;background-color:#009ad6"></div>
+    <div data-options="region:'north',split:true" style="height:80px;padding:20px;background-color:#009ad6">
+       <select onchange="ChangeTheme()">
+           <option value="black">black</option>
+           <option value="bootstrap">bootstrap</option>
+           <option value="default">default</option>
+           <option value="gray">gray</option>
+           <option value="material">material</option>
+           <option value="material-teal">material-teal</option>
+           <option value="metro">metro</option>
+       </select>
+    </div>
 
     <%----页脚-- --%>
     <div data-options="region:'south',split:true" style="height:50px;background:#ccc;text-align:center">
@@ -57,10 +69,10 @@
     </div>
 
     <%----操作栏-- --%>
-    <div data-options="region:'center',title:'内容',split:true"  >
+    <div data-options="region:'center',title:'内容',split:true"  style="overflow-y:visible ">
         <div  id="tabs" class="easyui-tabs"  fit="true" border="false">
             <div  data-options="title:'首页',iconCls:'icon-save',closable:true">
-                <img src="Images/index.svg" width="100%" height="100%" />
+                <img src="Images/index.svg" width="99%" height="99%" />
 
             </div>
         </div>

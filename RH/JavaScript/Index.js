@@ -41,9 +41,18 @@ function addTabs(title, url)
 //增加选项卡中，创建子窗口
 function creatFram(url)
 {
-    var s = '<iframe scrolling="auto" frameborder="0" src="' + url + '" width=100% height=100%></iframe>';
+    var s = '<iframe scrolling="no" frameborder="0" src="' + url + '" width=99% height=99%></iframe>';
     return s;
 
+}
+
+function ChangeTheme()
+{    
+    var $easyuiThere = $("#easyuiTheme");
+    var Theme=$("option:selected").val();
+    var url = $easyuiThere.attr("href");
+    var href = url.substring(0, url.indexOf('themes')) + '/themes/' + Theme+"/easyui.css";
+    $easyuiThere.attr('href', href);
 }
 
 
