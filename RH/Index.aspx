@@ -58,10 +58,10 @@
     <%----菜单栏-- --%>
     <div data-options="region:'west',title:'导航栏',split:true" style="width:200px;">
         <div id="acc" class="easyui-accordion" fit="true">
-            <div title="房屋出租" data-options="iconCls:'icon-edit',selected:true" style="overflow:auto;padding:10px;">   
+            <div title="房屋出租" data-options="iconCls:'icon-edit',selected:true,animate:true" style="overflow:auto;padding:10px;">   
                  <ul id="meau"></ul>
             </div>   
-            <div title="房屋出租" data-options="iconCls:'icon-edit'" style="padding:10px;">   
+            <div title="房屋出租" data-options="iconCls:'icon-edit',animate:true" style="padding:10px;">   
 
             </div>      
         </div>

@@ -50,8 +50,8 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Houses" Relationship="Self.FK_House_House" FromRole="HouseType" ToRole="House" />
+    <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Province">
     <Key>
@@ -147,6 +147,11 @@
       <End Role="Menu" EntitySet="Menus" />
       <End Role="MenuLevel" EntitySet="MenuLevels" />
     </AssociationSet>
+    <EntitySet Name="v_house" EntityType="RentHouseModel.v_house" />
+    <AssociationSet Name="FK_MenuLevel_Menu1" Association="RentHouseModel.FK_MenuLevel_Menu1">
+      <End Role="Menu" EntitySet="Menus" />
+      <End Role="MenuLevel" EntitySet="MenuLevels" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Menu">
     <Key>
@@ -155,6 +160,7 @@
     <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="MenuLevel" Relationship="RentHouseModel.FK_MenuLevel_Menu" FromRole="Menu" ToRole="MenuLevel" />
+    <NavigationProperty Name="MenuLevels" Relationship="RentHouseModel.FK_MenuLevel_Menu1" FromRole="Menu" ToRole="MenuLevel" />
   </EntityType>
   <EntityType Name="MenuLevel">
     <Key>
@@ -165,6 +171,7 @@
     <Property Name="MenuId" Type="Int32" Nullable="false" />
     <Property Name="MenuLevelURL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Menu" Relationship="RentHouseModel.FK_MenuLevel_Menu" FromRole="MenuLevel" ToRole="Menu" />
+    <NavigationProperty Name="Menu1" Relationship="RentHouseModel.FK_MenuLevel_Menu1" FromRole="MenuLevel" ToRole="Menu" />
   </EntityType>
   <Association Name="FK_MenuLevel_Menu">
     <End Type="RentHouseModel.Menu" Role="Menu" Multiplicity="1" />
@@ -175,6 +182,42 @@
       </Principal>
       <Dependent Role="MenuLevel">
         <PropertyRef Name="MenuLevelId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="v_house">
+    <Key>
+      <PropertyRef Name="Hid" />
+      <PropertyRef Name="Price" />
+      <PropertyRef Name="Address" />
+      <PropertyRef Name="TypeId" />
+      <PropertyRef Name="TypeName" />
+      <PropertyRef Name="Discription" />
+      <PropertyRef Name="MaterName" />
+      <PropertyRef Name="Telephone" />
+      <PropertyRef Name="StateId" />
+      <PropertyRef Name="StateName" />
+    </Key>
+    <Property Name="Hid" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="TypeId" Type="Int32" Nullable="false" />
+    <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Discription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MaterName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telephone" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+    <Property Name="StateId" Type="Int32" Nullable="false" />
+    <Property Name="StateName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_MenuLevel_Menu1">
+    <End Type="RentHouseModel.Menu" Role="Menu" Multiplicity="1" />
+    <End Type="RentHouseModel.MenuLevel" Role="MenuLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menu">
+        <PropertyRef Name="MenuId" />
+      </Principal>
+      <Dependent Role="MenuLevel">
+        <PropertyRef Name="MenuId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

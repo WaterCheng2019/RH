@@ -14,9 +14,17 @@ namespace RH
     
     public partial class Menu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Menu()
+        {
+            this.MenuLevels = new HashSet<MenuLevel>();
+        }
+    
         public int MenuId { get; set; }
         public string MenuName { get; set; }
     
         public virtual MenuLevel MenuLevel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MenuLevel> MenuLevels { get; set; }
     }
 }

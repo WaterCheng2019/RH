@@ -113,6 +113,7 @@
     <Content Include="Images\测试01.svg" />
     <Content Include="Images\测试02.svg" />
     <Content Include="JavaScript\Customer.js" />
+    <Content Include="JavaScript\House.js" />
     <Content Include="JavaScript\Index.js" />
     <Content Include="JavaScript\Login.js" />
     <Content Include="jquery-easyui-1.7.0\changelog.txt" />
@@ -1026,6 +1027,7 @@
     <Content Include="jquery-easyui-1.7.0\themes\material\images\Thumbs.db" />
     <Content Include="Ashx\Index.ashx" />
     <Content Include="Ashx\Customer.ashx" />
+    <Content Include="Ashx\House.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1056,6 +1058,9 @@
     </Compile>
     <Compile Include="Ashx\Customer.ashx.cs">
       <DependentUpon>Customer.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Ashx\House.ashx.cs">
+      <DependentUpon>House.ashx</DependentUpon>
     </Compile>
     <Compile Include="Ashx\Index.ashx.cs">
       <DependentUpon>Index.ashx</DependentUpon>
@@ -1144,6 +1149,9 @@
       <DependentUpon>RentHouse.edmx</DependentUpon>
     </Compile>
     <Compile Include="State.cs">
+      <DependentUpon>RentHouse.tt</DependentUpon>
+    </Compile>
+    <Compile Include="v_house.cs">
       <DependentUpon>RentHouse.tt</DependentUpon>
     </Compile>
   </ItemGroup>

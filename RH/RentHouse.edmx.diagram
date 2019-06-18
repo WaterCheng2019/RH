@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="783487a4ce6b457185a86a4ecec2d82a" Name="Diagram1">
-        <EntityTypeShape EntityType="RentHouseModel.Admin" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentHouseModel.Admin" Width="1.5" PointX="4.75" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RentHouseModel.City" Width="1.5" PointX="3.375" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="RentHouseModel.Customer" Width="1.5" PointX="5.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="RentHouseModel.House" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
@@ -16,9 +16,11 @@
         <AssociationConnector Association="RentHouseModel.FK_Customer_City" ManuallyRouted="false" />
         <AssociationConnector Association="RentHouseModel.FK_House_House" ManuallyRouted="false" />
         <AssociationConnector Association="RentHouseModel.FK_House_State" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="RentHouseModel.Menu" Width="1.5" PointX="8.375" PointY="1.125" />
-        <EntityTypeShape EntityType="RentHouseModel.MenuLevel" Width="1.5" PointX="10.625" PointY="0.875" />
+        <EntityTypeShape EntityType="RentHouseModel.Menu" Width="1.5" PointX="5.875" PointY="0.875" />
+        <EntityTypeShape EntityType="RentHouseModel.MenuLevel" Width="1.5" PointX="9.75" PointY="0.5" />
         <AssociationConnector Association="RentHouseModel.FK_MenuLevel_Menu" />
+        <EntityTypeShape EntityType="RentHouseModel.v_house" Width="1.5" PointX="0.75" PointY="8.75" />
+        <AssociationConnector Association="RentHouseModel.FK_MenuLevel_Menu1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

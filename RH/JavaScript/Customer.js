@@ -25,10 +25,10 @@ function AddCustomer()
             success: function (data) {
                 jsonObj = $.parseJSON(data);
                 if (jsonObj.meg == "sueecss") {
-                    $.messager.alert("提示", "sueecss");
+                    $.messager.alert("提示", "保存成功！！！", "info");
                 }
                 else {
-                    $.messager.alert("提示", "添加账户信息失败！！！");
+                    $.messager.alert("提示", data.meg,"info");
                 }
                         
             }
