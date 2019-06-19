@@ -45,7 +45,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="StateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="Menu">
     <Key>
@@ -75,6 +75,32 @@
       <PropertyRef Name="StateId" />
     </Key>
     <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“RentHouse.dbo.v_house”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="v_house">
+    <Key>
+      <PropertyRef Name="Hid" />
+      <PropertyRef Name="Price" />
+      <PropertyRef Name="Address" />
+      <PropertyRef Name="TypeId" />
+      <PropertyRef Name="TypeName" />
+      <PropertyRef Name="Discription" />
+      <PropertyRef Name="MaterName" />
+      <PropertyRef Name="Telephone" />
+      <PropertyRef Name="StateId" />
+      <PropertyRef Name="StateName" />
+    </Key>
+    <Property Name="Hid" Type="int" Nullable="false" />
+    <Property Name="Price" Type="money" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="TypeId" Type="int" Nullable="false" />
+    <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Discription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MaterName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Telephone" Type="char" MaxLength="11" Nullable="false" />
+    <Property Name="StateId" Type="int" Nullable="false" />
     <Property Name="StateName" Type="nvarchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <Association Name="FK_City_City">
@@ -127,13 +153,13 @@
   </Association>
   <Association Name="FK_MenuLevel_Menu">
     <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
-    <End Role="MenuLevel" Type="Self.MenuLevel" Multiplicity="0..1" />
+    <End Role="MenuLevel" Type="Self.MenuLevel" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Menu">
         <PropertyRef Name="MenuId" />
       </Principal>
       <Dependent Role="MenuLevel">
-        <PropertyRef Name="MenuLevelId" />
+        <PropertyRef Name="MenuId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -147,6 +173,20 @@
     <EntitySet Name="MenuLevel" EntityType="Self.MenuLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="v_house" EntityType="Self.v_house" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [v_house].[Hid] AS [Hid], 
+    [v_house].[Price] AS [Price], 
+    [v_house].[Address] AS [Address], 
+    [v_house].[TypeId] AS [TypeId], 
+    [v_house].[TypeName] AS [TypeName], 
+    [v_house].[Discription] AS [Discription], 
+    [v_house].[MaterName] AS [MaterName], 
+    [v_house].[Telephone] AS [Telephone], 
+    [v_house].[StateId] AS [StateId], 
+    [v_house].[StateName] AS [StateName]
+    FROM [dbo].[v_house] AS [v_house]</DefiningQuery>
+    </EntitySet>
     <AssociationSet Name="FK_City_City" Association="Self.FK_City_City">
       <End Role="Province" EntitySet="Province" />
       <End Role="City" EntitySet="City" />

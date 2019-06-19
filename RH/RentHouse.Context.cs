@@ -34,5 +34,6 @@ namespace RH
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<MenuLevel> MenuLevels { get; set; }
+        public virtual DbSet<v_house> v_house { get; set; }
     }
 }

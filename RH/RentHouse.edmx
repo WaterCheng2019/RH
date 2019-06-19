@@ -50,7 +50,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="StateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Menu">
           <Key>
@@ -80,6 +80,32 @@
             <PropertyRef Name="StateId" />
           </Key>
           <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StateName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“RentHouse.dbo.v_house”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="v_house">
+          <Key>
+            <PropertyRef Name="Hid" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="TypeId" />
+            <PropertyRef Name="TypeName" />
+            <PropertyRef Name="Discription" />
+            <PropertyRef Name="MaterName" />
+            <PropertyRef Name="Telephone" />
+            <PropertyRef Name="StateId" />
+            <PropertyRef Name="StateName" />
+          </Key>
+          <Property Name="Hid" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Discription" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="MaterName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telephone" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="StateId" Type="int" Nullable="false" />
           <Property Name="StateName" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="FK_City_City">
@@ -132,13 +158,13 @@
         </Association>
         <Association Name="FK_MenuLevel_Menu">
           <End Role="Menu" Type="Self.Menu" Multiplicity="1" />
-          <End Role="MenuLevel" Type="Self.MenuLevel" Multiplicity="0..1" />
+          <End Role="MenuLevel" Type="Self.MenuLevel" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Menu">
               <PropertyRef Name="MenuId" />
             </Principal>
             <Dependent Role="MenuLevel">
-              <PropertyRef Name="MenuLevelId" />
+              <PropertyRef Name="MenuId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -152,6 +178,20 @@
           <EntitySet Name="MenuLevel" EntityType="Self.MenuLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Province" EntityType="Self.Province" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="State" EntityType="Self.State" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="v_house" EntityType="Self.v_house" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [v_house].[Hid] AS [Hid], 
+    [v_house].[Price] AS [Price], 
+    [v_house].[Address] AS [Address], 
+    [v_house].[TypeId] AS [TypeId], 
+    [v_house].[TypeName] AS [TypeName], 
+    [v_house].[Discription] AS [Discription], 
+    [v_house].[MaterName] AS [MaterName], 
+    [v_house].[Telephone] AS [Telephone], 
+    [v_house].[StateId] AS [StateId], 
+    [v_house].[StateName] AS [StateName]
+    FROM [dbo].[v_house] AS [v_house]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_City_City" Association="Self.FK_City_City">
             <End Role="Province" EntitySet="Province" />
             <End Role="City" EntitySet="City" />
@@ -227,8 +267,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StateName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Houses" Relationship="Self.FK_House_House" FromRole="HouseType" ToRole="House" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Province">
           <Key>
@@ -324,6 +364,11 @@
             <End Role="Menu" EntitySet="Menus" />
             <End Role="MenuLevel" EntitySet="MenuLevels" />
           </AssociationSet>
+          <EntitySet Name="v_house" EntityType="RentHouseModel.v_house" />
+          <AssociationSet Name="FK_MenuLevel_Menu1" Association="RentHouseModel.FK_MenuLevel_Menu1">
+            <End Role="Menu" EntitySet="Menus" />
+            <End Role="MenuLevel" EntitySet="MenuLevels" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Menu">
           <Key>
@@ -332,6 +377,7 @@
           <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MenuName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MenuLevel" Relationship="RentHouseModel.FK_MenuLevel_Menu" FromRole="Menu" ToRole="MenuLevel" />
+          <NavigationProperty Name="MenuLevels" Relationship="RentHouseModel.FK_MenuLevel_Menu1" FromRole="Menu" ToRole="MenuLevel" />
         </EntityType>
         <EntityType Name="MenuLevel">
           <Key>
@@ -342,6 +388,7 @@
           <Property Name="MenuId" Type="Int32" Nullable="false" />
           <Property Name="MenuLevelURL" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Menu" Relationship="RentHouseModel.FK_MenuLevel_Menu" FromRole="MenuLevel" ToRole="Menu" />
+          <NavigationProperty Name="Menu1" Relationship="RentHouseModel.FK_MenuLevel_Menu1" FromRole="MenuLevel" ToRole="Menu" />
         </EntityType>
         <Association Name="FK_MenuLevel_Menu">
           <End Type="RentHouseModel.Menu" Role="Menu" Multiplicity="1" />
@@ -352,6 +399,42 @@
             </Principal>
             <Dependent Role="MenuLevel">
               <PropertyRef Name="MenuLevelId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="v_house">
+          <Key>
+            <PropertyRef Name="Hid" />
+            <PropertyRef Name="Price" />
+            <PropertyRef Name="Address" />
+            <PropertyRef Name="TypeId" />
+            <PropertyRef Name="TypeName" />
+            <PropertyRef Name="Discription" />
+            <PropertyRef Name="MaterName" />
+            <PropertyRef Name="Telephone" />
+            <PropertyRef Name="StateId" />
+            <PropertyRef Name="StateName" />
+          </Key>
+          <Property Name="Hid" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discription" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MaterName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="StateId" Type="Int32" Nullable="false" />
+          <Property Name="StateName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_MenuLevel_Menu1">
+          <End Type="RentHouseModel.Menu" Role="Menu" Multiplicity="1" />
+          <End Type="RentHouseModel.MenuLevel" Role="MenuLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menu">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="MenuLevel">
+              <PropertyRef Name="MenuId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -408,8 +491,8 @@
           <EntitySetMapping Name="HouseTypes">
             <EntityTypeMapping TypeName="RentHouseModel.HouseType">
               <MappingFragment StoreEntitySet="HouseType">
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StateName" ColumnName="StateName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -444,6 +527,22 @@
                 <ScalarProperty Name="MenuId" ColumnName="MenuId" />
                 <ScalarProperty Name="MenuLevelName" ColumnName="MenuLevelName" />
                 <ScalarProperty Name="MenuLevelId" ColumnName="MenuLevelId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="v_house">
+            <EntityTypeMapping TypeName="RentHouseModel.v_house">
+              <MappingFragment StoreEntitySet="v_house">
+                <ScalarProperty Name="StateName" ColumnName="StateName" />
+                <ScalarProperty Name="StateId" ColumnName="StateId" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="MaterName" ColumnName="MaterName" />
+                <ScalarProperty Name="Discription" ColumnName="Discription" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Hid" ColumnName="Hid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

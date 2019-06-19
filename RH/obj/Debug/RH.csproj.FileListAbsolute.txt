@@ -75,4 +75,3 @@ D:\@99我的项目文件\RH\RH\bin\Microsoft.CodeDom.Providers.DotNetCompilerPla
 D:\@99我的项目文件\RH\RH\bin\zh-Hans\EntityFramework.resources.dll
 D:\@99我的项目文件\RH\RH\obj\Debug\RH.dll
 D:\@99我的项目文件\RH\RH\obj\Debug\RH.pdb
-D:\@99我的项目文件\RH\RH\obj\Debug\RH.csprojResolveAssemblyReference.cache

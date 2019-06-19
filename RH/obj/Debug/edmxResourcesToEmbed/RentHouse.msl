@@ -48,8 +48,8 @@
     <EntitySetMapping Name="HouseTypes">
       <EntityTypeMapping TypeName="RentHouseModel.HouseType">
         <MappingFragment StoreEntitySet="HouseType">
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
           <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="StateName" ColumnName="StateName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -84,6 +84,22 @@
           <ScalarProperty Name="MenuId" ColumnName="MenuId" />
           <ScalarProperty Name="MenuLevelName" ColumnName="MenuLevelName" />
           <ScalarProperty Name="MenuLevelId" ColumnName="MenuLevelId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="v_house">
+      <EntityTypeMapping TypeName="RentHouseModel.v_house">
+        <MappingFragment StoreEntitySet="v_house">
+          <ScalarProperty Name="StateName" ColumnName="StateName" />
+          <ScalarProperty Name="StateId" ColumnName="StateId" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="MaterName" ColumnName="MaterName" />
+          <ScalarProperty Name="Discription" ColumnName="Discription" />
+          <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+          <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Hid" ColumnName="Hid" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

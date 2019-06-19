@@ -12,14 +12,17 @@ namespace RH
     using System;
     using System.Collections.Generic;
     
-    public partial class MenuLevel
+    public partial class v_house
     {
-        public int MenuLevelId { get; set; }
-        public string MenuLevelName { get; set; }
-        public int MenuId { get; set; }
-        public string MenuLevelURL { get; set; }
-    
-        public virtual Menu Menu { get; set; }
-        public virtual Menu Menu1 { get; set; }
+        public int Hid { get; set; }
+        public decimal Price { get; set; }
+        public string Address { get; set; }
+        public int TypeId { get; set; }
+        public string TypeName { get; set; }
+        public string Discription { get; set; }
+        public string MaterName { get; set; }
+        public string Telephone { get; set; }
+        public int StateId { get; set; }
+        public string StateName { get; set; }
     }
 }
