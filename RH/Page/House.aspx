@@ -14,12 +14,25 @@
 
     <script src="../JavaScript/House.js"></script>
 
+    <style type="text/css">
+       #ff table{
+           width:300px;
+           margin:0 auto;
+       }
+       #ff table tr td{
+            padding:5px;
+        }
+    </style>
+
 </head>
 <body>
+    
+   <%--DataGrid--%>
     <div>
         <table id="tbHouse"></table>
     </div>
 
+   <%--dg工具栏--%>
     <div id="tb">
         <div style="margin:5px">
             类型：<input name="TypeName" id="TypeNames" />
@@ -29,44 +42,53 @@
     </div>
 
 
-    <div id="HouseDialog" style="width:480px;padding:10px">
+    <%--添加信息dialog--%>
+    <div style="display:none">
+    <div id="HouseDialog" style="padding:25px;" >
         <form id="ff" method="post">
-            <table id="tblAdd">
+            <table id="tblAdd" border="1" cellspacing="0" cellpadding="0"   >
                 <tr>
                     <td><label for="txtPrice">租金</label></td>
-                    <td><input id="txtPrice" name="txtPrice" /></td>
+                    <td><input id="txtPrice" name="txtPrice" class="easyui-numberbox" data-options="prefix:'$',min:0,precision:2,required:true"  /></td>
                 </tr>
                  <tr>
                     <td><label for="txtAddress">地址</label></td>
-                    <td><input id="txtAddress" name="txtAddress" /></td>
+                    <td><input id="txtAddress" name="txtAddress" class="easyui-validatebox" data-options="required:true" /></td>
                 </tr>
                 <tr>
                     <td><label for="TypeName1">类型</label></td>
                     <td><input id="TypeName1" name="TypeName1" /></td>
                 </tr>
-                 <tr>
-                    <td><label style="vertical-align:top" for="txtDes">简介：</label></td>
-                    <td><textarea id="txtDes" name="txtDes" rows="5" cols="37" /></td>
-                </tr>
+               
                 <tr>
                     <td><label for="txtMaster">房主</label></td>
-                    <td><input id="txtMaster" name="txtMaster" /></td>
+                    <td><input id="txtMaster" name="txtMaster" class="easyui-validatebox" data-options="required:true" /></td>
                 </tr>
                 <tr>
                     <td><label for="txtPhone">联系方式</label></td>
-                    <td><input id="txtPhone" name="txtPhone" /></td>
+                    <td><input id="txtPhone" name="txtPhone" class="easyui-validatebox" data-options="required:true" /></td>
                 </tr>
                 <tr>
                     <td><label for="txtState">出租状态</label></td>
                     <td><input id="txtState" name="txtState" /></td>
                 </tr>
+                <tr>
+                    <td><label style="vertical-align:top" for="txtDes">简介：</label></td>
+                    <td><input id="txtDes1" name="txtDes1" class="easyui-validatebox" data-options="required:true" /></td>
+                   <%-- <td><textarea id="txtDes1" name="txtDes1" rows="5" cols="37" class="easyui-validatebox" data-options="required:true" /></td> --%>
+                </tr>
             </table>
         </form>
+        
     </div>
+        <%--添加信息工具栏--%>
+           <div id="dialogintn">
+             <a href="#"  class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="btnOK">确定 </a>
+             <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="btnClose">关闭 </a>
+           </div>
+</div>
+    
+ 
 
-    <div id="dialogintn">
-        <a href="javascript:void()" class="easuui-linkbutton" data-options="iconCls:'icon-ok'" id="btnOK">确定 </a>
-         <a href="javascript:void()" class="easuui-linkbutton" data-options="iconCls:'icon-ok'" id="btnOK">关闭 </a>
-    </div>
 </body>
 </html>

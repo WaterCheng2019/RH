@@ -10,9 +10,8 @@ function makeTree()
         width: 200,
         method:'post',
         url: 'Ashx/Index.ashx?Method=GetMeanu',
-        onSelect: function (node)
+        onSelect: function (node)//单击菜单栏事件
         {
-            //alert(node.attribute.url);
             if (node.attribute.url != null) {
                 addTabs(node.text, node.attribute.url);
             }    

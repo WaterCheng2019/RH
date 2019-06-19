@@ -22,11 +22,11 @@
             <table>
                 <tr>
                     <td>用户名：</td>
-                    <td><input id="Name" name="Name" type="text"  /></td>
+                    <td><input id="Name" name="Name" type="text" value="admin"  /></td>
                 </tr>
                 <tr>
                     <td>密码：</td>
-                    <td><input id="Pwd" name="Pwd" type="password"  /></td>
+                    <td><input id="Pwd" name="Pwd" type="password" value="1"  /></td>
                 </tr>
             </table>
         </form>
