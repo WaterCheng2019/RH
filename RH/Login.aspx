@@ -14,7 +14,7 @@
 
     <script src="JavaScript/Login.js"></script>
 </head>
-<body>
+<body >
 
     <div id="dialog">
         <div id="content" style="padding:30px">
@@ -22,7 +22,9 @@
             <table>
                 <tr>
                     <td>用户名：</td>
-                    <td><input id="Name" name="Name" type="text" value="admin"  /></td>
+                    <td>
+                        <input id="Name" name="Name" type="text" value="admin"  />
+                    </td>
                 </tr>
                 <tr>
                     <td>密码：</td>
@@ -33,7 +35,7 @@
         </div>
     </div>
     <div id="tools" style="text-align:center">
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="btnLogin" onclick="LoginClick()">登陆</a>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="btnLogin" onclick="LoginClick()" >登陆</a>
     </div>
 </body>
 </html>

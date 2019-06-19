@@ -9,6 +9,9 @@
     <script src="../jquery-easyui-1.7.0/jquery.min.js"></script>
     <script src="../jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../jquery-easyui-1.7.0/easyui-lang-zh_CN.js"></script>
+
+    <script src="../jquery-easyui-1.7.0/datagrid-detailview.js"></script>
+
     <link href="../jquery-easyui-1.7.0/themes/bootstrap/easyui.css" rel="stylesheet" />
     <link href="../jquery-easyui-1.7.0/themes/icon.css" rel="stylesheet" />
 
@@ -49,7 +52,7 @@
             <table id="tblAdd" border="1" cellspacing="0" cellpadding="0"   >
                 <tr>
                     <td><label for="txtPrice">租金</label></td>
-                    <td><input id="txtPrice" name="txtPrice" class="easyui-numberbox" data-options="prefix:'$',min:0,precision:2,required:true"  /></td>
+                    <td><input id="txtPrice" name="txtPrice" class="easyui-numberbox" data-options="prefix:'$',min:0,precision:2,required:true,suffix:'元'"  /></td>
                 </tr>
                  <tr>
                     <td><label for="txtAddress">地址</label></td>
@@ -66,7 +69,7 @@
                 </tr>
                 <tr>
                     <td><label for="txtPhone">联系方式</label></td>
-                    <td><input id="txtPhone" name="txtPhone" class="easyui-validatebox" data-options="required:true" /></td>
+                    <td><input id="txtPhone" name="txtPhone" class="easyui-validatebox" data-options="required:true,validType:'Phone'" /></td>
                 </tr>
                 <tr>
                     <td><label for="txtState">出租状态</label></td>
@@ -75,7 +78,7 @@
                 <tr>
                     <td><label style="vertical-align:top" for="txtDes">简介：</label></td>
                     <td><input id="txtDes1" name="txtDes1" class="easyui-validatebox" data-options="required:true" /></td>
-                   <%-- <td><textarea id="txtDes1" name="txtDes1" rows="5" cols="37" class="easyui-validatebox" data-options="required:true" /></td> --%>
+                    <%--<td><textarea id="txtDes1" name="txtDes1" rows="5" cols="37" class="easyui-validatebox" data-options="required:true" /></td> --%>
                 </tr>
             </table>
         </form>
@@ -83,8 +86,8 @@
     </div>
         <%--添加信息工具栏--%>
            <div id="dialogintn">
-             <a href="#"  class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="btnOK">确定 </a>
-             <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="btnClose">关闭 </a>
+             <a href="javascript:void(0)"  class="easyui-linkbutton" data-options="iconCls:'icon-ok'" id="btnOK">确定 </a>
+             <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" id="btnClose" onclick="javascript:$('#HouseDialog').dialog('close')">关闭 </a>
            </div>
 </div>
     

@@ -1,26 +1,80 @@
-﻿$(function () {
+﻿var isAddOrEdit, URL; //0:添加，1.修改
+
+$(function () {
     maekCombobox();
     makeDataGrid();
 
 
     //单击添加按钮
     $("#btnAdd").click(function () {
-        makeAddHouseDialog();
+        isAddOrEdit = 0;
+        //makeAddHouseDialog();
+        $("#HouseDialog").dialog('open').dialog('setTitle', '增加租房屋信息');
         maekCombobox1();
         makeStatCombobox();
+
+        URL = "/Ashx/House.ashx?Method=SaveHouse";
     });
+
+    //单击修改按钮
+    $("#btnUpadate").click(function () {
+        isAddOrEdit = 1;//修改
+
+        var row = $("#tbHouse").datagrid('getSelected');
+
+        if (row) {
+            $("#HouseDialog").dialog('open').dialog('setTitle', '编辑出租房屋信息');
+            maekCombobox1();
+            makeStatCombobox();
+
+            //回填
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/Ashx/House.ashx?Method=DetailAllInfo&Hid='+row.Hid,
+                success: function (data) {
+                    $("#TypeName1").combobox("setValue",data.TypeId);
+                    $("#txtState").combobox("setValue",data.StateId);
+                    $("#txtPrice").val(data.Price);
+                    $("#txtAddress").val(data.Address);
+                    $("#txtMaster").val(data.MaterName);
+                    $("#txtPhone").val(data.Telephone);
+                    $("#txtDes1").val(data.Discription);
+                },
+                error: function (error) {
+                    console.info(error);
+                }
+            });//向服务器异步请求数据，并处理响应的数据
+
+            URL = "/Ashx/House.ashx?Method=EditHoust&Hid="+row.Hid;
+
+        }
+        else {
+            $.messager.alert("提示","请选择要编辑行的信息！！","info");
+
+        }
+    });
+
 
     //单击Dialog中的确定
     $("#btnOK").click(function () {
         $("#ff").form('submit', {
-            url: '/Ashx/House.ashx?Method=SaveHouse',
+            url: URL,
             onSubmit: function () {
               return $("#myForm").form('validate');
             },
             success: function (data) {
                 //console.info(data);
                 if (data["meg"] = "OK") {
-                    $.messager.alert("提示","保存成功！","info");
+
+                    $("#HouseDialog").dialog("close");
+                    if (isAddOrEdit==0) {
+                        $.messager.alert("提示", "保存成功！", "info");
+                    } else {
+                        $.messager.alert("提示", "修改成功！", "info");
+                    }
+                  
+                    $("#tbHouse").datagrid('rold');
                 }
                 else {
                     $.messager.alert("提示", "保存失败！", "info");
@@ -28,8 +82,15 @@
             }
         });
     });
+});
 
-
+$.extend($.fn.validatebox.defaults.rules, {
+    Phone: {
+        validator: function (value) {
+            return /^1[3456789]\d{9}$/.test(value);
+        },
+        message: '手机必须以13、15、17、18开头的18数字'
+    }
 });
 
 
@@ -45,9 +106,9 @@ function makeAddHouseDialog() {
     });
 
     //diaolog里的关闭
-    $("#btnClose").click(function () {
-        $("#HouseDialog").dialog('close', true);
-    });
+    //$("#btnClose").click(function () {
+    //    $("#HouseDialog").dialog('close', true);
+    //});
 }
 
 
@@ -82,6 +143,29 @@ function makeDataGrid()
         method:'post',
         url: '/Ashx/House.ashx?Method=GetHouseList',
         toolbar:'#tb',
+
+        view: detailview,
+        detailFormatter: function (rowIndex, rowData) {//详细内容
+            var content = "";
+            content += "<div styple='padding:5px' id='div_'" + rowIndex + "></div>";
+            return content;
+        },
+        onExpandRow: function (rowIndex, rowData) {//展开时触发
+            $("#div_" + rowIndex).panel({
+                //title: '详情信息展示',
+                //iconCls: 'icon-save',
+                //method:'POST',
+                
+                //herf: '/Ashx/House.ashx?Method=GetHouseDetail&Hid=' + rowData.Hid,
+               
+            });
+            alert("#div_" + rowIndex);
+
+            console.info("打开详细面板" + rowIndex + rowData.Hid);
+            //$("#tbHouse").datagrid("fixColumnSize", rowIndex);
+        },
+
+
 
         columns:[
             [

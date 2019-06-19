@@ -31,7 +31,7 @@
        }
 </script>
 </head>
-<body class="easyui-layout" >
+<body class="easyui-layout"  >
    <%--掩盖层，防止加载时，layouot组件错乱现象--%>
     <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#DDDDDB;text-align :center;padding-top:20%;"
      <h1><font color="#15428B">加载中....</font></h1>

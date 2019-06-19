@@ -13,5 +13,13 @@ namespace RH
         {
 
         }
+
+        protected void btnLogin_ServerClick(object sender, EventArgs e)
+        {
+            //给用户发凭证
+            //System.Web.Security.FormsAuthentication.SetAuthCookie(Name.Text, true);
+
+
+        }
     }
 }

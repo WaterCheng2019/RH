@@ -36,6 +36,8 @@ namespace RH.Ashx
             string txtState = context.Request["txtState"];
             string txtDes1 = context.Request["txtDes1"];
 
+            string Hid = context.Request["Hid"];
+
             try
             {
                 switch (Method)
@@ -51,6 +53,15 @@ namespace RH.Ashx
                         break;
                     case "SaveHouse":
                         jsonData=SaveHouse(txtPrice,txtAddress,TypeName1,txtMaster,txtPhone,txtState,txtDes1);
+                        break; 
+                    case "GetHouseDetail":
+                        jsonData = GetHouseDetail(Hid);
+                        break; 
+                    case "DetailAllInfo":
+                        jsonData = DetailAllInfo(Hid) ;
+                        break; 
+                    case "EditHoust":
+                        jsonData = EditHoust(Hid, txtPrice, txtAddress, TypeName1, txtMaster, txtPhone, txtState, txtDes1);
                         break;
                 }
             }
@@ -193,6 +204,75 @@ namespace RH.Ashx
                 return jsonData;
             }
 
+        }
+        /// <summary>
+        /// 根据ID,获取单个信息
+        /// </summary>
+        public string GetHouseDetail(string Hid)
+        {
+            string resultData = "";
+
+            int ID = Convert.ToInt32(Hid);
+
+            using (RentHouseEntities re=new RentHouseEntities())
+            {
+                var h = re.Houses.Where(i => i.Hid == ID).FirstOrDefault();
+
+                resultData = "编号是:"+h.Hid+"<br/>"+h.Discription;
+            }
+
+            return resultData;
+        }
+        public string DetailAllInfo(string Hid)
+        {
+            string resultData = "";
+
+            int ID = Convert.ToInt32(Hid);
+
+            using (RentHouseEntities re = new RentHouseEntities())
+            {
+                var h = re.Houses.Where(i => i.Hid == ID).FirstOrDefault();
+
+                resultData = JsonConvert.SerializeObject(h);
+            }
+
+            return resultData;
+        }
+        //修改
+        public string EditHoust(string Hid, string txtPrice, string txtAddress, string TypeName1, string txtMaster, string txtPhone, string txtState, string txtDes1)
+        {
+            string resultData = "";
+
+            int ID = Convert.ToInt32(Hid);
+
+            using (RentHouseEntities re = new RentHouseEntities())
+            {
+                var h = re.Houses.Where(i => i.Hid == ID).FirstOrDefault();
+
+                if (h!=null)
+                {
+                    h.Price = Convert.ToDecimal(txtPrice);
+                    h.Address = txtAddress;
+                    h.TypeId = Convert.ToInt32(TypeName1);
+                    h.MaterName = txtMaster;
+                    h.Telephone = txtPhone;
+                    h.StateId = Convert.ToInt32(txtState);
+                    h.Discription = txtDes1;
+                }
+
+                if (re.SaveChanges()>0)
+                {
+                    resultData = JsonConvert.SerializeObject(new { meg="OK" });
+                }
+                else
+                {
+                    resultData = JsonConvert.SerializeObject(new { meg = "修改失败！！" });
+                }
+
+                
+            }
+
+            return resultData;
         }
 
         public bool IsReusable
