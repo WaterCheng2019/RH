@@ -986,6 +986,7 @@
     <Content Include="jquery-easyui-1.7.0\themes\mobile.css" />
     <Content Include="jquery-easyui-1.7.0\themes\react.css" />
     <Content Include="jquery-easyui-1.7.0\themes\vue.css" />
+    <Content Include="NODE.txt" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

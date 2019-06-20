@@ -41,6 +41,7 @@
             类型：<input name="TypeName" id="TypeNames" />
                   <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="btnAdd">添加</a>
                   <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="btnUpadate">修改</a>
+                  <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="btnDel">删除</a>
         </div>
     </div>
 

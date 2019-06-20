@@ -38,6 +38,8 @@ namespace RH.Ashx
 
             string Hid = context.Request["Hid"];
 
+            string pram = context.Request["pram"];//删除的参数
+
             try
             {
                 switch (Method)
@@ -62,6 +64,9 @@ namespace RH.Ashx
                         break; 
                     case "EditHoust":
                         jsonData = EditHoust(Hid, txtPrice, txtAddress, TypeName1, txtMaster, txtPhone, txtState, txtDes1);
+                        break;    
+                    case "DeleHouses":
+                        jsonData = DeleHouses(pram);
                         break;
                 }
             }
@@ -231,6 +236,8 @@ namespace RH.Ashx
 
             using (RentHouseEntities re = new RentHouseEntities())
             {
+                re.Configuration.ProxyCreationEnabled = false;//避免序列化时造成循环依赖
+
                 var h = re.Houses.Where(i => i.Hid == ID).FirstOrDefault();
 
                 resultData = JsonConvert.SerializeObject(h);
@@ -273,6 +280,20 @@ namespace RH.Ashx
             }
 
             return resultData;
+        }
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="pram"></param>
+        /// <returns></returns>
+        public string DeleHouses(string pram)
+        {
+            using (RentHouseEntities re=new RentHouseEntities())
+            {
+                //string[] Ids = pram.Split(",");
+            }
+
+            return "";
         }
 
         public bool IsReusable
