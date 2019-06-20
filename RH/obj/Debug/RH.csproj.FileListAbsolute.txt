@@ -34,7 +34,6 @@ F:\GitHub\RH\RH\bin\Microsoft.AI.WindowsServer.xml
 F:\GitHub\RH\RH\bin\Microsoft.ApplicationInsights.xml
 F:\GitHub\RH\RH\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 F:\GitHub\RH\RH\bin\zh-Hans\EntityFramework.resources.dll
-F:\GitHub\RH\RH\obj\Debug\RH.csprojResolveAssemblyReference.cache
 F:\GitHub\RH\RH\obj\Debug\RH.dll
 F:\GitHub\RH\RH\obj\Debug\RH.pdb
 D:\@99我的项目文件\RH\RH\bin\ApplicationInsights.config

@@ -1150,7 +1150,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RentHouse.edmx</DependentUpon>
     </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>RentHouse.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>RentHouse.tt</DependentUpon>
+    </Compile>
     <Compile Include="State.cs">
+      <DependentUpon>RentHouse.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
       <DependentUpon>RentHouse.tt</DependentUpon>
     </Compile>
     <Compile Include="v_house.cs">

@@ -290,10 +290,31 @@ namespace RH.Ashx
         {
             using (RentHouseEntities re=new RentHouseEntities())
             {
-                //string[] Ids = pram.Split(",");
+                string jsonData = "";
+                string[] Ids = pram.Split(',');
+
+                if (Ids.Length>0)
+                {
+                    foreach (string id in Ids)
+                    {
+                        int d = Convert.ToInt32(id);
+                        RH.House h = re.Houses.Where(i=>i.Hid==d).FirstOrDefault();
+                        re.Houses.Remove(h);
+                    }
+                    if (re.SaveChanges()>0)
+                    {
+                        jsonData = JsonConvert.SerializeObject(new { meg="OK" });
+                    }
+                    else
+                    {
+                        jsonData = JsonConvert.SerializeObject(new { meg="失败" });
+                    }
+
+                }
+                return jsonData;
             }
 
-            return "";
+          
         }
 
         public bool IsReusable

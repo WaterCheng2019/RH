@@ -64,7 +64,7 @@ $(function () {
             url: URL,
             onSubmit: function () {
                 var falg = $("#ff").form('validate');
-                return falg
+                return falg;
             },
             success: function (data) {
                 //console.info(data);
@@ -110,11 +110,24 @@ $(function () {
                             pram += "," + each.Hid;
                         }
                     });
-                    console.info(pram);
+                    //console.info(pram);
 
                     $.ajax({
+                        type: 'POST',
+                        dataType:'json',
                         url: '/Ashx/House.ashx?Method=DeleHouses&pram='+pram,
                         success: function (data) {
+                            console.info(data);
+
+                            if (data.meg=="OK") {
+                                $.messager.alert("提示", "删除成功！", "info");
+                                $("#tbHouse").datagrid('reload');
+                                $("#tbHouse").datagrid('clearSelections');
+                            }
+                            else {
+                                $.messager.alert("提示","删除失败！","info");
+                            }
+                                    
 
                         }
                     });

@@ -21,6 +21,7 @@
         <AssociationConnector Association="RentHouseModel.FK_MenuLevel_Menu" />
         <EntityTypeShape EntityType="RentHouseModel.v_house" Width="1.5" PointX="0.75" PointY="8.75" />
         <AssociationConnector Association="RentHouseModel.FK_MenuLevel_Menu1" />
+        <EntityTypeShape EntityType="RentHouseModel.sysdiagram" Width="1.5" PointX="8.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
