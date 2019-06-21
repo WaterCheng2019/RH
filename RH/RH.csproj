@@ -118,6 +118,7 @@
     <Content Include="JavaScript\Login.js" />
     <Content Include="jquery-easyui-1.7.0\changelog.txt" />
     <Content Include="jquery-easyui-1.7.0\datagrid-detailview.js" />
+    <Content Include="jquery-easyui-1.7.0\datagrid-export.js" />
     <Content Include="jquery-easyui-1.7.0\demo-mobile\accordion\basic.html" />
     <Content Include="jquery-easyui-1.7.0\demo-mobile\accordion\header.html" />
     <Content Include="jquery-easyui-1.7.0\demo-mobile\accordion\_content.html" />

@@ -43,7 +43,7 @@ function makePwd() {
 function LoginClick()
 {
     $("#myForm").form('submit', {
-        url: 'Ashx/Login.ashx?Method=GetList',
+        url: 'Ashx/Login.ashx?Method=GetList&Randmom='+Math.random(),
         onSubmit: function ()
         {
             var isViali = $("#myForm").form('validate');

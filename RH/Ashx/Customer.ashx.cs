@@ -32,6 +32,11 @@ namespace RH.Ashx
                 string Telephone= context.Request["Telephone"];
 
 
+                int page= Convert.ToInt32(context.Request["page"]);
+                int rows= Convert.ToInt32(context.Request["rows"]);
+                string sort= context.Request["sort"];
+                string order= context.Request["order"];
+
                 switch (method)
                 {
 
@@ -43,6 +48,9 @@ namespace RH.Ashx
                         break;
                     case "AddCustomer":
                         ResultData = AddCustomer(CustomerName, CustomerPwd, CityId, BornDate, Telephone);
+                        break;
+                    case "GetCustomList":
+                        ResultData = GetCustomList(page, rows, sort, order);
                         break;
                 }
             }
@@ -102,6 +110,58 @@ namespace RH.Ashx
                     return JsonConvert.SerializeObject(new { meg = "添加账户失败！！！" });
                 }
             }
+        }
+
+        /// <summary>
+        ///获取会员信息
+        /// </summary>
+        /// <returns></returns>
+        public string GetCustomList(int page,int rows,string sort,string order)
+        {
+            IQueryable<RH.Customer> customs = null;
+
+            using (RentHouseEntities re=new RentHouseEntities())
+            {
+                //1.查询
+                customs = from i in re.Customers select i;
+
+                //2.排序
+                if (order=="desc")
+                {
+                    switch (sort)
+                    {
+                        case "CustomerId":
+                            customs = customs.OrderByDescending(i=>i.CustomerId);
+                            break;
+                    }
+                }
+                else
+                {
+                    switch (sort)
+                    {
+                        case "CustomerId":
+                            customs = customs.OrderBy(i => i.CustomerId);
+                            break;
+                    }
+                }
+
+                //3.分页
+                int count = customs.Count();
+                if (page<=1)
+                {
+                    customs = customs.Take(rows);
+                }
+                else
+                {
+                    customs = customs.Skip((page - 1) * rows).Take(rows);
+                }
+
+
+                return JsonConvert.SerializeObject(new {total=count, rows=customs.ToList() });
+            }
+            
+            
+
         }
 
         public bool IsReusable

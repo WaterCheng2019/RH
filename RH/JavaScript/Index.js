@@ -9,14 +9,23 @@ function makeTree()
         animate: true,
         width: 200,
         method:'post',
-        url: 'Ashx/Index.ashx?Method=GetMeanu',
+        url: 'Ashx/Index.ashx?Method=GetMeanu&Random='+Math.random(),
+        onLoadSuccess: function () {//去掉Tree默认图标
+            $(".tree-icon,.tree-file").removeClass("tree-icon tree-file");
+            $(".tree-icon,.tree-folder").removeClass("tree-icon tree-folder tree-folder-open tree-folder-closed");
+        },
         onSelect: function (node)//单击菜单栏事件
         {
             if (node.attribute.url != null) {
-                addTabs(node.text, node.attribute.url);
+                //console.info(node.attribute.url + "?Random=" + Math.random());
+                addTabs(node.text, node.attribute.url + "?Random=" + Math.random());
+
             }    
         }
-        });
+    });
+
+
+    
 }
 
 //添加选项卡

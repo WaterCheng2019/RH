@@ -30,6 +30,7 @@
            });
        }
 </script>
+
 </head>
 <body class="easyui-layout"  >
    <%--掩盖层，防止加载时，layouot组件错乱现象--%>

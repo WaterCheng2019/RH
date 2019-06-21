@@ -17,7 +17,7 @@ $(function () {
         $("#txtPhone").val("");
         $("#txtDes1").val("");
         
-        URL = "/Ashx/House.ashx?Method=SaveHouse";
+        URL = "/Ashx/House.ashx?Method=SaveHouse&Random="+Math.random();
     }); 
 
     //单击修改
@@ -140,6 +140,16 @@ $(function () {
 
 
     });
+
+    //导出Excel
+    $("#btnExcel").click(function () {
+        $("#tbHouse").datagrid('toExcel', 'datagrid.xls');//导出Excel   
+       
+    });
+
+    $("#btPrint").click(function () {
+        $("#tbHouse").datagrid('print',  'datagrid');//打印
+    });
 });
 
 $.extend($.fn.validatebox.defaults.rules, {
@@ -175,7 +185,10 @@ function makeDataGrid()
     $("#tbHouse").datagrid({
         title: '房屋列表',
         iconCls:'icon-save',
-        panlHeight: 'auto',
+        //panlHeight: 'auto',
+
+        height: $(window).height() - 35,
+        width:$(window).width() - 10,
 
         striped: true,//显示斑马效果
         rownumbers: true,//显示行号
@@ -197,7 +210,7 @@ function makeDataGrid()
         pageList:[10,15,20],
 
         method:'post',
-        url: '/Ashx/House.ashx?Method=GetHouseList',
+        url: '/Ashx/House.ashx?Method=GetHouseList&Random='+Math.random(),
         toolbar:'#tb',
 
         view: detailview,
@@ -215,7 +228,7 @@ function makeDataGrid()
                 iconCls: 'icon-save',
                 method:'POST',
                 loadingMessage:'正在加载数据中,请稍后。。。',
-                href: '/Ashx/House.ashx?Method=GetHouseDetail&Hid=' + rowData.Hid,
+                href: '/Ashx/House.ashx?Method=GetHouseDetail&Hid=' + rowData.Hid+"&Random="+Math.random(),
             });
 
             $("#tbHouse").datagrid("fixDetailRowHeight", rowIndex);
@@ -292,7 +305,7 @@ function maekCombobox1() {
         panelHeight: 'auto',
         valueField: 'Id',
         textField: 'TypeName',
-        url: '/Ashx/House.ashx?Method=LoadHouseTypeCombobox&Type=1',
+        url: '/Ashx/House.ashx?Method=LoadHouseTypeCombobox&Type=1&Random='+Math.random(),
         method: 'post',
         onLoadSuccess: function () {
 
@@ -313,7 +326,7 @@ function makeStatCombobox()
         valueField: 'StateId',
         textField: 'StateName',
         method:'post',
-        url: '/Ashx/House.ashx?Method=LoadStatCombobox',
+        url: '/Ashx/House.ashx?Method=LoadStatCombobox&Random=' + Math.random(),
         onLoadSuccess: function () {
             var datas = $("#txtState").combobox('getData');
             $("#txtState").combobox('select', datas[0].StateId);

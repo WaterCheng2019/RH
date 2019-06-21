@@ -24,7 +24,13 @@
     </style>
 </head>
 <body>
-    <div id="dl" >
+
+    <div>
+        <table id="dgCustom"></table>
+    </div>
+
+   <%-- 对话框--%>
+    <div id="dl" style="display:none" >
         <div id="content" style="margin:30px" >
             <form id="addf" method="post">
                 <table border="1" width="500px" cellspacing="0" cellpadding="0">

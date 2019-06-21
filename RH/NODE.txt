@@ -1,3 +1,33 @@
 ﻿1.datagrid 组件详情展示注意点：
 	点击+号展开时出现内容错乱
 	解决办法： $("#tbHouse").datagrid("fixDetailRowHeight", rowIndex);
+
+2.tree组件 去掉左侧图标
+	$(".tree-icon,.tree-file").removeClass("tree-icon tree-file");
+    $(".tree-icon,.tree-folder").removeClass("tree-icon tree-folder tree-folder-open tree-folder-closed");
+
+3.layou 加载时内容坍陷，出现布局混乱现象，解决办法：
+     <script>//解决layout，浏览器，打开时错乱现象
+       var pc;
+       //不要放在$(function(){});中
+       $.parser.onComplete = function () {
+           if (pc) clearTimeout(pc);
+           pc = setTimeout(closes, 1000);
+       }
+
+       function closes() {
+           $('#loading').fadeOut('normal', function () {
+               $(this).remove();
+           });
+       }
+     </script>
+
+    <%--掩盖层，防止加载时，layouot组件错乱现象--%>
+    <div id="loading" style="position:absolute;z-index:1000;top:0px;left:0px;width:100%;height:100%;background:#DDDDDB;text-align :center;padding-top:20%;"
+      <h1><font color="#15428B">加载中....</font></h1>
+     </div>
+
+4.避免浏览器缓存，请求URL加上随机数
+	URL不变时，有时候会导致浏览器不发送请求，直接从缓存中读取之前的数据
+	url: 'Ashx/Login.ashx?Method=GetList&Randmom='+Math.random(),
+	

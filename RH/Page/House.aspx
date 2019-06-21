@@ -12,6 +12,8 @@
 
     <script src="../jquery-easyui-1.7.0/datagrid-detailview.js"></script>
 
+    <script src="../jquery-easyui-1.7.0/datagrid-export.js"></script>
+
     <link href="../jquery-easyui-1.7.0/themes/bootstrap/easyui.css" rel="stylesheet" />
     <link href="../jquery-easyui-1.7.0/themes/icon.css" rel="stylesheet" />
 
@@ -42,6 +44,8 @@
                   <a class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="btnAdd">添加</a>
                   <a class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="btnUpadate">修改</a>
                   <a class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="btnDel">删除</a>
+                  <a class="easyui-linkbutton" id="btnExcel">导出Excel</a>
+                  <a class="easyui-linkbutton" id="btPrint">打印</a>
         </div>
     </div>
 
