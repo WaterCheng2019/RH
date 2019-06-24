@@ -29,6 +29,22 @@
         <table id="dgCustom"></table>
     </div>
 
+     <%--工具栏--%>
+    <div id="tb">
+        <div style="margin:5px">
+            会员名称：<input type="text" id="CustomeName" name="CustomeName" />
+            省：<input type="text" id="ProvinceId1" name="ProvinceId1" />
+            市：<input type="text" id="City1" name="City1" />
+
+
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'" id="btnSearch">查询</a>
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="btnAdd">增加</a>
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="btnEdit">修改</a>
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="btnDele">删除</a>
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-excel'" id="btnExcle">导出Excel</a>
+        </div>
+    </div>
+
    <%-- 对话框--%>
     <div id="dl" style="display:none" >
         <div id="content" style="margin:30px" >
@@ -66,7 +82,7 @@
             </form>
 
             <div id="dtool"><!--对话框的工具栏-->
-                <a href="javascript:void()" class="easyui-linkbutton" data-options="iconCls:'icon-save'" id="btnAdd">保存</a>
+                <a href="javascript:void()" class="easyui-linkbutton" data-options="iconCls:'icon-save'" id="btnSave">保存</a>
             </div>
         </div>
     </div>

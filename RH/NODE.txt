@@ -30,4 +30,7 @@
 4.避免浏览器缓存，请求URL加上随机数
 	URL不变时，有时候会导致浏览器不发送请求，直接从缓存中读取之前的数据
 	url: 'Ashx/Login.ashx?Method=GetList&Randmom='+Math.random(),
+
+5.设置DataGrid表格宽度
+	height: $(window).height() - 35,
 	

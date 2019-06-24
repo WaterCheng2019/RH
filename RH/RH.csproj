@@ -786,6 +786,7 @@
     <Content Include="jquery-easyui-1.7.0\themes\icons\cut.png" />
     <Content Include="jquery-easyui-1.7.0\themes\icons\edit_add.png" />
     <Content Include="jquery-easyui-1.7.0\themes\icons\edit_remove.png" />
+    <Content Include="jquery-easyui-1.7.0\themes\icons\Excel.png" />
     <Content Include="jquery-easyui-1.7.0\themes\icons\filesave.png" />
     <Content Include="jquery-easyui-1.7.0\themes\icons\filter.png" />
     <Content Include="jquery-easyui-1.7.0\themes\icons\help.png" />
