@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿
+var URL, isAddOrEdit;
+$(function () {
 
     makedgCustom();
     
@@ -29,8 +31,12 @@
 
     //增加
     $("#btnAdd").click(function () {
+        
         clearText();
         $("#dl").dialog('open');
+        $("#dl").dialog('setTitle','增加会员信息');
+        isAddOrEdit = 0;//增加
+        URL = '/Ashx/Customer.ashx?Method=AddCustomer&Random=' + Math.random();
     });
     //修改
     $("#btnEdit").click(function () {
@@ -38,6 +44,7 @@
       
         if (row) {
             $("#dl").dialog('open');
+            $("#dl").dialog('setTitle', '修改会员信息');
             //回填数据
      
             $.ajax({
@@ -49,17 +56,22 @@
                     CName.value = data.CustomerName;
                     Pwd1.value = data.CustomerPwd;
                     Pwd2.value = data.CustomerPwd;
-                   
                     Telephone.value = data.Telephone;
                     $("#BornDate").datebox('setValue', data.BornDate);
 
-                    console.info(data.CustomerName);
-                    console.info(data);
+                    $("#City").combobox('setValue', data.CityId);
+                    $("#Provice").combobox('setValue', data.ProvinceId);
+
+
+                    //console.info(data.CustomerName);
+                    //console.info(data);
 
                 }
             });
           
-           
+            isAddOrEdit = 1;//修改
+           // URL = '/Ashx/Customer.ashx?Method=EditCustomer&Random='+Math.random;
+            URL = '/Ashx/Customer.ashx?Method=EditCustomer&CustomerId=' + row.CustomerId+'&Random='+Math.random();
 
         } else {
             $.messager.alert("温馨提示", "请选择要修改的数据行！！", "info");
@@ -77,15 +89,16 @@ function makedgCustom() {
        // width: $(window).width() - 10,
 
         method: 'POST',
-        url: '/Ashx/Customer.ashx?Method=GetCustomList',
-
+        url: '/Ashx/Customer.ashx?Method=GetCustomList&Random=' + Math.random,
 
         idField: 'CustomerId',
 
         fitColumns: true,
         striped: true,
         rownumbers: true,
-        singleSelect:true,
+        singleSelect: true,
+        nowrap: true,
+        autoRowHeight: true,
 
         sortName: 'CustomerId',
         sortOrder: 'desc',
@@ -115,6 +128,48 @@ function makedgCustom() {
                 ]
            ]
     });
+}
+
+
+//添加或修改
+function AddCustomer() {
+    $("#btnSave").click(function () {
+        console.info(URL);
+        $("#addf").form("submit", {
+            url: URL,
+            onSubmit: function () {
+                var falg = $("#addf").form("validate");
+                if (!falg) {
+                    $.messager.alert("提示", "表单验证未通过！！！");
+                    return false;//阻止提交
+                }
+            },
+            success: function (data) {
+                jsonObj = $.parseJSON(data);
+                console.info(data);
+                if (jsonObj.meg == "sueecss") {
+
+                    if (isAddOrEdit==0) {
+                        $.messager.alert("温馨提示", "增加成功！！！", "info");
+                    } else {
+                        $.messager.alert("温馨提示", "修改成功！！！", "info");
+                    }
+
+                    //$.messager.alert("提示", "保存成功！！！", "info");
+                    $("#dgCustom").datagrid('load');//刷新DataGrid
+                    $("#dl").dialog('close');//关闭Dialog
+                    $("#dgCustom").datagrid('clearSelections');//清除所选行
+
+
+                }
+                else {
+                    $.messager.alert("提示", "保存失败："+data.meg, "info");
+                }
+            }
+        });
+
+    });
+
 }
 
 //格式化所在城市列
@@ -185,35 +240,6 @@ function makeTextBox() {
 }
 
 
-//添加账户
-function AddCustomer() {
-    $("#btnSave").click(function () {
-        $("#addf").form("submit", {
-            url: '/Ashx/Customer.ashx?Method=AddCustomer&Random=' + Math.random(),
-            onSubmit: function () {
-                var falg = $("#addf").form("validate");
-                if (!falg) {
-                    $.messager.alert("提示", "表单验证未通过！！！");
-                    return false;//阻止提交
-                }
-            },
-            success: function (data) {
-                jsonObj = $.parseJSON(data);
-                if (jsonObj.meg == "sueecss") {
-                    //$.messager.alert("提示", "保存成功！！！", "info");
-                    $("#dgCustom").datagrid('load');//刷新DataGrid
-                    $("#dl").dialog('close');//关闭Dialog
-                   
-                }
-                else {
-                    $.messager.alert("提示", data.meg, "info");
-                }
-            }
-        });
-
-    });
-
-}
 //清空表单
 function clearText() {
     $("#CName").val("");

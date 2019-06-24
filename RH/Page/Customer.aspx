@@ -21,6 +21,15 @@
         #dl table tr td{
             padding:5px;
         }
+        #ff table {
+            width: 300px;
+            margin: 0 auto;
+        }
+
+            #ff table tr td {
+                padding: 5px;
+            }
+
     </style>
 </head>
 <body>
@@ -82,7 +91,7 @@
             </form>
 
             <div id="dtool"><!--对话框的工具栏-->
-                <a href="javascript:void()" class="easyui-linkbutton" data-options="iconCls:'icon-save'" id="btnSave">保存</a>
+                <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-save'" id="btnSave">保存</a><%--javascript:void()--%>
             </div>
         </div>
     </div>

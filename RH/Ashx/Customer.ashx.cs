@@ -27,7 +27,7 @@ namespace RH.Ashx
 
                 string CustomerName = context.Request["CName"];
                 string CustomerPwd = context.Request["Pwd1"];
-                int CityId = Convert.ToInt32(context.Request["City"]);
+                string CityId = context.Request["City"];
                 DateTime BornDate = Convert.ToDateTime(context.Request["BornDate"]);
                 string Telephone = context.Request["Telephone"];
 
@@ -71,8 +71,10 @@ namespace RH.Ashx
                         break;
                     case "GetCustomerById":
                         ResultData = GetCustomerById(CustomerId);
+                        break; 
+                    case "EditCustomer":
+                        ResultData = EditCustomer(CustomerId, CustomerName, CustomerPwd, CityId, BornDate, Telephone);
                         break;
-
 
                 }
             }
@@ -110,15 +112,16 @@ namespace RH.Ashx
             }
         }
         //增加
-        public string AddCustomer(string CustomerName, string CustomerPwd, int CityId, DateTime BornDate, string Telephone)
+        public string AddCustomer(string CustomerName, string CustomerPwd, string CityId, DateTime BornDate, string Telephone)
         {
             using (RentHouseEntities re = new RentHouseEntities())
             {
+                int cityId = Convert.ToInt32(CityId);
                 re.Customers.Add(new RH.Customer()
                 {
                     CustomerName = CustomerName,
                     CustomerPwd = CustomerPwd,
-                    CityId = CityId,
+                    CityId = cityId,
                     BornDate = BornDate,
                     Telephone = Telephone
                 });
@@ -255,9 +258,49 @@ namespace RH.Ashx
                 re.Configuration.ProxyCreationEnabled = false;
                 int Id = Convert.ToInt32(CustomerId);
 
-                RH.Customer customer = re.Customers.Find(Id);
+                var customer = (from a in re.Customers
+                                       join b in re.Cities on a.CityId equals b.CityId
+                                       join c in re.Provinces on b.ProvinceId equals c.ProvinceId
+                                       where a.CustomerId==Id
+                                       select new
+                                       {
+                                           a.CustomerName,
+                                           a.CustomerPwd,
+                                           a.Telephone,
+                                           a.BornDate,
+                                           b.CityName,
+                                           c.ProvinceName
+                                       }).FirstOrDefault();
 
                 return JsonConvert.SerializeObject(customer);
+            }
+        }
+        public string EditCustomer(string CustomerId, string CustomerName, string CustomerPwd, string CityId, DateTime BornDate, string Telephone)
+        {
+            using (RentHouseEntities re=new RentHouseEntities())
+            {
+                int Id = Convert.ToInt32(CustomerId);
+                int cityId = Convert.ToInt32(CityId);
+
+                RH.Customer c = re.Customers.Where(i => i.CustomerId == Id).FirstOrDefault();
+                if (c!=null)
+                {
+                    c.CustomerName = CustomerName;
+                    c.CustomerPwd = CustomerPwd;
+                    c.CityId = cityId;
+                    c.BornDate = BornDate;
+                    c.Telephone = Telephone;
+                }
+
+                if (re.SaveChanges()>0)
+                {
+                    return JsonConvert.SerializeObject(new { meg= "sueecss" });
+                }
+                else
+                {
+                    return JsonConvert.SerializeObject(new { meg = "修改失败" });
+                }
+
             }
         }
 

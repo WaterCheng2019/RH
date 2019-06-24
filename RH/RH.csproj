@@ -1032,6 +1032,7 @@
     <Content Include="Ashx\Index.ashx" />
     <Content Include="Ashx\Customer.ashx" />
     <Content Include="Ashx\House.ashx" />
+    <Content Include="jEasyUI1.3.6版API中文版.chm" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
