@@ -33,4 +33,13 @@
 
 5.设置DataGrid表格宽度
 	height: $(window).height() - 35,
+
+6.JS日期函数
+  var data=new Data();
+  data.getFullYear();//年
+  data.getMonth();   //月（0-11）
+  data.getDate();	 //天 
+  data.getDay();	 //周 (0-6)
+
+
 	

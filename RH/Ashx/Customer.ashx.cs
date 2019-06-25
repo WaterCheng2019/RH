@@ -75,6 +75,9 @@ namespace RH.Ashx
                     case "EditCustomer":
                         ResultData = EditCustomer(CustomerId, CustomerName, CustomerPwd, CityId, BornDate, Telephone);
                         break;
+                    case "DeleteCustomer":
+                        ResultData = DeleteCustomer(CustomerId);
+                        break;
 
                 }
             }
@@ -264,17 +267,28 @@ namespace RH.Ashx
                                        where a.CustomerId==Id
                                        select new
                                        {
+                                           a.CustomerId,
                                            a.CustomerName,
                                            a.CustomerPwd,
                                            a.Telephone,
                                            a.BornDate,
-                                           b.CityName,
-                                           c.ProvinceName
+                                           b.CityId,
+                                           c.ProvinceId
                                        }).FirstOrDefault();
 
                 return JsonConvert.SerializeObject(customer);
             }
         }
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="CustomerId"></param>
+        /// <param name="CustomerName"></param>
+        /// <param name="CustomerPwd"></param>
+        /// <param name="CityId"></param>
+        /// <param name="BornDate"></param>
+        /// <param name="Telephone"></param>
+        /// <returns></returns>
         public string EditCustomer(string CustomerId, string CustomerName, string CustomerPwd, string CityId, DateTime BornDate, string Telephone)
         {
             using (RentHouseEntities re=new RentHouseEntities())
@@ -302,6 +316,26 @@ namespace RH.Ashx
                 }
 
             }
+        }
+        public string DeleteCustomer(String CustomerId)
+        {
+            int Id = Convert.ToInt32(CustomerId);
+
+            using (RentHouseEntities re=new RentHouseEntities())
+            {
+                RH.Customer c = re.Customers.Find(Id);
+                re.Customers.Remove(c);
+                if (re.SaveChanges()>0)
+                {
+                    return JsonConvert.SerializeObject(new { meg="success" });
+                }
+                else
+                {
+                    return JsonConvert.SerializeObject(new { meg = "Fail" });
+                }
+
+            }
+
         }
 
         public bool IsReusable

@@ -1033,6 +1033,7 @@
     <Content Include="Ashx\Customer.ashx" />
     <Content Include="Ashx\House.ashx" />
     <Content Include="jEasyUI1.3.6版API中文版.chm" />
+    <Content Include="jQuery EasyUI 1.5.1 版 API 中文版 %28Made By Richie696%29.chm" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

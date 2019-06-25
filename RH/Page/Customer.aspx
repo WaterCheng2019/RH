@@ -9,6 +9,8 @@
     <script src="../jquery-easyui-1.7.0/jquery.min.js"></script>
     <script src="../jquery-easyui-1.7.0/jquery.easyui.min.js"></script>
     <script src="../jquery-easyui-1.7.0/easyui-lang-zh_CN.js"></script>
+    <script src="../jquery-easyui-1.7.0/datagrid-export.js"></script>
+
     <link href="../jquery-easyui-1.7.0/themes/material/easyui.css" rel="stylesheet" />
     <link href="../jquery-easyui-1.7.0/themes/icon.css" rel="stylesheet" />
 
@@ -50,7 +52,7 @@
             <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" id="btnAdd">增加</a>
             <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-edit'" id="btnEdit">修改</a>
             <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" id="btnDele">删除</a>
-            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-excel'" id="btnExcle">导出Excel</a>
+            <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-excel'" id="btnExcel">导出Excel</a>
         </div>
     </div>
 

@@ -58,10 +58,11 @@ $(function () {
                     Pwd2.value = data.CustomerPwd;
                     Telephone.value = data.Telephone;
                     $("#BornDate").datebox('setValue', data.BornDate);
+                    //console.info(data.BornDate);
 
                     $("#City").combobox('setValue', data.CityId);
                     $("#Provice").combobox('setValue', data.ProvinceId);
-
+                  
 
                     //console.info(data.CustomerName);
                     //console.info(data);
@@ -76,6 +77,43 @@ $(function () {
         } else {
             $.messager.alert("温馨提示", "请选择要修改的数据行！！", "info");
         }
+    });
+
+    //删除
+    $("#btnDele").click(function () {
+
+        var row = $("#dgCustom").datagrid('getSelected');
+        if (row) {
+            $.messager.confirm("温馨提示", "确定要删除该行数据吗？", function () {
+                console.info(row.CustomerId);
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/Ashx/Customer.ashx?Method=DeleteCustomer&CustomerId=' + row.CustomerId + "&Random=" + Math.random(),
+                    success: function (data) {
+                        if (data.meg == "success") {
+                            $.messager.alert("温馨提示", "删除成功！！！", "info");
+                            $("#dgCustom").datagrid('load');
+                            $("#dgCustom").datagrid('clearSelections');
+                        } else {
+                            $.messager.alert("温馨提示", "删除失败！！！", "info");
+                        }
+                    },
+                    error: function (error) {
+                        console.info(error);
+                    }
+                });
+
+            });
+        } else {
+            $.messager.alert("温馨提示", "请选择要删除的行数据！！！", "info");
+        }
+    });
+
+    //导出Execl
+    $("#btnExcel").click(function () {
+        $("#dgCustom").datagrid('toExcel', 'datagrid.xls');//导出Excel   
+
     });
 
 });
@@ -105,7 +143,6 @@ function makedgCustom() {
 
         pagePosition: 'bottom',
 
-
         pagination: true,
         pageSize: 10,
         pageList: [10, 20, 100, 1000],
@@ -124,7 +161,6 @@ function makedgCustom() {
                     { field: 'BornDate', title: '出生日期', width: 100, align: 'center', formatter:formatBornDate },
                     { field: 'Telephone', title: '手机号码', width: 100, align: 'center' },
                     { field: 'CustomerPwd', title: '密码', width: 100, align: 'center', formatter:formatPwd }
-
                 ]
            ]
     });
@@ -167,9 +203,7 @@ function AddCustomer() {
                 }
             }
         });
-
     });
-
 }
 
 //格式化所在城市列
@@ -177,11 +211,14 @@ function formatBornDate(value,row,index) {
     if (value==undefined) {
         return "";
     }
-    var date = new Date(value);
-    var year = date.getFullYear();
-    var moth = date.getMonth() + 1;
-    var day = date.getDay();
+    var data = new Date(value);
+    var year = data.getFullYear();
+    var moth = data.getMonth() + 1;
+    var day = data.getDate();
 
+    //console.info("value：" + value);
+    //console.info("data：" + data);
+    //console.info("day：" + day);
 
     return year + "-" + moth + "-" + day;
 }
@@ -228,8 +265,6 @@ function loadCity1(ProvinceId) {
         }
     });
 }
-
-
 
 //实例化会员名称
 function makeTextBox() {
@@ -317,9 +352,6 @@ function makePwd2Validatebox() {
         missingMessage: '请输入密码！！！',
         validType: "pwdAgain['#Pwd1']",
     });
-
-
-
 }
 //手机号
 function makeTeleValidatebox() {
@@ -338,13 +370,12 @@ function makeBrodDate() {
             //$("#BornDate").datebox("setValue", null);
             $("#BornDate").datebox("clear");
             //$("#BornDate").datebox("closed");
-
-
         }
     });
     $("#BornDate").datebox({
         buttons: button,
-        width: 200
+        width: 200,
+        editable:false
     });
 
 }
@@ -354,6 +385,7 @@ function loadCity(ProvinceId) {
     var resquestURL = "/Ashx/Customer.ashx?Method=GetAllCity&ProvinceId=" + ProvinceId + "&Random=" + Math.random();
     $("#City").combobox({
         width: 150,
+        editable:false,
         //panelHeight: 'auto',
         valueField: 'CityId',
         textField: 'CityName',
@@ -370,6 +402,7 @@ function loadProvice() {
     $("#Provice").combobox({
         width: 150,
         //panelHeight: 'auto',
+        editable:false,
         valueField: 'ProvinceId',
         textField: 'ProvinceName',
         method: 'post',
